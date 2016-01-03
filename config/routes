@@ -6,3 +6,4 @@
 
 / HomeR GET POST
 /schedule/!#ScheduleId ScheduleR GET POST
+/schedule/posts/new NewScheduleR GET POST
