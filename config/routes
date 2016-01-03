@@ -4,6 +4,6 @@
 /favicon.ico FaviconR GET
 /robots.txt RobotsR GET
 
-/ HomeR GET POST
+/ HomeR GET
 /schedule/!#ScheduleId ScheduleR GET POST
 /schedule/posts/new NewScheduleR GET POST

@@ -1,0 +1,10 @@
+<h1> All Posts
+
+<div .jumbotron>
+    <ul>
+        $forall Entity id post <- allPosts
+            <li>#{formatTime defaultTimeLocale "%F" $ scheduleDay post}
+                #{formatTime defaultTimeLocale "%T" $ scheduleStart post}
+                #{formatTime defaultTimeLocale "%T" $ scheduleEnd post}
+                #{scheduleTeam post}
+                #{scheduleSgroup post}

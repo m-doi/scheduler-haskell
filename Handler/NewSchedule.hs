@@ -6,16 +6,26 @@ import Data.Time
 
 scheduleForm :: AForm Handler Schedule
 scheduleForm = Schedule
-    <$> areq dayField "Day" Nothing
-    <*> areq timeFieldTypeTime "From" Nothing
-    <*> areq timeFieldTypeTime "To" Nothing
+    <$> areq dayField (bfs ("Day" :: Text)) Nothing
+    <*> areq timeFieldTypeTime (bfs ("From" :: Text)) Nothing
+    <*> areq timeFieldTypeTime (bfs ("To" :: Text)) Nothing
     <*> areq textField (bfs ("Who?" :: Text)) Nothing
     <*> areq textField (bfs ("Where?" :: Text)) Nothing
 
 
 getNewScheduleR :: Handler Html
-getNewScheduleR = error "Not yet implemented: getScheduleR"
+getNewScheduleR = do
+    (widget, enctype) <- generateFormPost $ renderBootstrap3 BootstrapBasicForm scheduleForm
+    defaultLayout $ do
+        $(widgetFile "/schedule/posts/new")
+
 
 
 postNewScheduleR :: Handler Html
-postNewScheduleR = error "Not yet implemented: postNewScheduleR"
+postNewScheduleR = do
+    ((res, widget), enctype) <- runFormPost $ renderBootstrap3 BootstrapBasicForm scheduleForm
+    case res of
+        FormSuccess schedule -> do
+            runDB $ insert schedule
+            defaultLayout $(widgetFile "/schedule/posts/new")
+        _ -> defaultLayout $(widgetFile "/schedule/posts/new")
