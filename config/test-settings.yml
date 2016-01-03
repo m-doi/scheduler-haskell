@@ -1,0 +1,2 @@
+database:
+  database: scheduler_test.sqlite3
